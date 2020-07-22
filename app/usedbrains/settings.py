@@ -75,8 +75,11 @@ WSGI_APPLICATION = 'usedbrains.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': os.environ.get('DB_HOST'),
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASS'),
     }
 }
 
@@ -115,6 +118,16 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
+# https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+# 127.0.0.1:8000/static will map to static directories, llly media will map.
+
+# Tells django where to look and store media.
+MEDIA_ROOT = '/vol/web/media'
+
+# collect static in django collects static files from
+STATIC_ROOT = '/vol/web/static'
+# custom User model authorization
+AUTH_USER_MODEL = 'core.User
