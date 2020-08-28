@@ -128,7 +128,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'app/static')
+]
+
 MEDIA_URL = '/media/'
 # 127.0.0.1:8000/static will map to static directories, llly media will map.
 
@@ -136,6 +142,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = '/vol/web/media'
 
 # collect static in django collects static files from
-STATIC_ROOT = '/vol/web/static'
+# STATIC_ROOT = '/vol/web/static'
 # custom User model authorization
 # AUTH_USER_MODEL = 'core.User'

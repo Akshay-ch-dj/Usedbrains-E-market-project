@@ -134,3 +134,15 @@ dmypy.json
 # Local venv
 UB-localenv/
 app/mydatabase
+UB-localenv/Lib/
+
+# Media files and static files
+app/static/
+/media
+
+# .vs code
+.vscode
+.gitignore
+.vscode/settings.json
+.gitignore
+
