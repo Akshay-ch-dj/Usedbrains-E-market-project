@@ -138,11 +138,10 @@ UB-localenv/Lib/
 
 # Media files and static files
 app/static/
-/media
+app/media
 
 # .vs code
 .vscode
 .gitignore
 .vscode/settings.json
 .gitignore
-
