@@ -5,7 +5,6 @@
 ## Project plan
 
 1. Creating Basic Models
-
     * Creating the listings model
     * seller model
     * register models
@@ -35,9 +34,9 @@
 10. Deployment
 
 
-# MODEL/DB FIELDS
+## MODEL/DB FIELDS
 
-## LISTING (Storing Info on a listing on the page)
+### LISTING (Storing Info on a listing on the page)
 
 1. id - auto increment id for the listings table
    * Data type "int".
@@ -85,7 +84,7 @@
 30. photo_6: **STR**
 
 
-## SELLER DB (contains information about a seller/user)
+### SELLER DB (contains information about a seller/user)
 1. Id - **INT**
 2. name - **STR**
 3. address - **STR**
@@ -99,7 +98,7 @@
 11. join_date - **DATE** (Date they joined)
 
 
-## CONTACT SELLER
+### CONTACT SELLER
 
 Inquires that sent to the seller
 1. id: **INT**
@@ -111,5 +110,41 @@ Inquires that sent to the seller
 7. phone: **STR**
 8. message: **TEXT**
 9. contact_date: **DATE**
+10. is_authentic: **BOOL** ( A seller can be set authenticate in the admin panel,
+    give em a badge or something in the sellers page)
 
 * Any inquiries made to the contact
+
+
+> #### Adding The Models
+
+In django models.ImageField(), define where the files get uploaded(db stores the
+address of that location), -- Set that `upload_to='photos/%Y/%m/%d/'` giving the
+photos a date folder structure (year/month/date/<here_the_photo>)
+
+On the admin page one can select a main field to be to be set as the display
+field for models, on the listing model set it to the *title* field.
+
+To validate some fields like a phone number the django regex validators can be used
+like
+
+```python
+from django.core.validators import RegexValidator
+
+class PhoneModel(models.Model):
+    ...
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True) # validators should be a list
+```
+
+To see the actual SQL queries a migrations make use the `python manage.py sqlmigrate listings 0001` where 'listings'
+is the app name and '0001' is the migration file created when `python manage.py makemigrations` run.
+
+* Add the `python manage.py migrate` command to docker-compose.
+* Connect the running docker db service container using `docker exec -it <container name/id> bash` to interact with the container using a bash terminal, to check the added tables in the db named 'app'(which is set as project db).
+* Can log in to postgres using `psql -U postgres` (postgres is the default user(and our user)), enter the password in
+the docker-compose(not asked usually),
+* switch to db 'app' using `\c app` (in postgres), to show tables use `\d` to see a particular table types
+use `\d listings_listing` (listings_listing is the table name),
+* use `SELECT * FROM listings_listing` to see the contents.
+* in tables, can use *uuid* for better security and non colliding identifiers, google postgres uuids,
