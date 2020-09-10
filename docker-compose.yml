@@ -9,7 +9,8 @@ services:
         volumes:
             - ./app:/app
         command: >
-            sh -c "python manage.py runserver 0.0.0.0:8000"
+            sh -c "python manage.py wait_for_db &&
+                    python manage.py runserver 0.0.0.0:8000"
         # Modifying the app service for db
         environment:
             - DB_HOST=db
@@ -24,10 +25,12 @@ services:
         image: postgres:12-alpine
         volumes:
             - postgres_data:/var/lib/postgresql/data/
+        ports:
+            - "5432:5432"
         environment:
             - POSTGRES_DB=app
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=passwordmain
-            
-volumes: 
+
+volumes:
     postgres_data:
