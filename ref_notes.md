@@ -1,0 +1,7 @@
+# MODEL/DB FIELDS
+
+### LISTING
+
+### SELLER
+
+### CONTACT SELLER
