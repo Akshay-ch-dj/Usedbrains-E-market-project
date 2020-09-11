@@ -148,3 +148,15 @@ the docker-compose(not asked usually),
 use `\d listings_listing` (listings_listing is the table name),
 * use `SELECT * FROM listings_listing` to see the contents.
 * in tables, can use *uuid* for better security and non colliding identifiers, google postgres uuids,
+
+#### Setup Admin area
+
+* Create a superuser (`python manage.py createsuperuser` --> `username: akshay`, `email: akshaych.dev@gmail.com`,
+`password: UBadmin123`)
+* Django admin staff status indicates a user is admin/not.(admin area is staff only). Check or uncheck the staff
+  status in the user lists.
+* Edit the `admin.py` in the listings and sellers app to get them up on the admin page. Register the models
+* Add media root and url (Tells django where to look and store media).`MEDIA_ROOT = os.path.join(BASE_DIR, 'media')`
+`MEDIA_URL = '/media/'`
+* Also, in main `project.urls.py` add `[...] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)`
+* 

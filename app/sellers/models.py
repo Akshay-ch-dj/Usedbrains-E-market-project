@@ -7,7 +7,7 @@ class Seller(models.Model):
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
     state = models.CharField(max_length=100)
-    pin_code = models.IntegerField()
+    pin_code = models.CharField(max_length=10)
     phone_number = models.CharField(max_length=20)
     # Should have one photo
     photo = models.ImageField(upload_to='photos/%Y/%m/%d/')

@@ -137,11 +137,11 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'app/static')
 ]
 
+# Tells django where to look and store media.
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 MEDIA_URL = '/media/'
 # 127.0.0.1:8000/static will map to static directories, llly media will map.
-
-# Tells django where to look and store media.
-MEDIA_ROOT = '/vol/web/media'
 
 # collect static in django collects static files from
 # STATIC_ROOT = '/vol/web/static'
