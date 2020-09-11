@@ -1,4 +1,43 @@
 # Usedbrains: Used laptops selling website
+---
+Used laptops often comes to small repairing shops, or servicing centers, they pick the working laptops,
+even repairable laptops just gets in to e-waste. Actual makers don't promote the reusability of a laptop,
+
+Many companies replace their employees personal laptops, the old ones taken
+down as e-waste, no one makes such interests in selling them because the market for used laptops
+is low.
+As COVID 19 changes many things, one of main thing is the education sector, In the forthcoming years, education
+going to get more digital, any teacher can do classes from any where, and there is already that information explosion
+happening,
+
+But in a developing country like india, not every young minds got a chance to get a brand new laptop for
+their learning, as even a running 10 year old laptop can be good at usual browsing, online classes and coding, a lot more people get benefitted. Usedbrains is made from that point of view to make that right connection happen,
+
+
+This project is developed as a bridge between those sellers and those people who now can't afford
+a new laptop or just need a secondary basic one.
+
+Also,
+
+As computers are customizable, A hard-drive missing computer can be benefitted to one who got a portable
+hard-drive, A display broken one can be benefitted to one who got a old monitor lying around, A lap with
+keyboard complaint can be benefitted to a user who does not needs portability. As so and so many hacks and
+use cases lying around, just getting of that old lap as e waste in this time is not a very smart idea anytime..
+As any good component is worth selling.
+
+In Usedbrains, buyers can contact to seller inquire about the working of laptop, find their best buy,
+Authentic sellers can pick the good laptops repair the minor damages, replace the hard-drives(data-security)
+and sell through Usedbrains that can help some one somewhere go digital and to access the endless possibilities
+of education, someone who wishes to reuse components,
+
+reduce e-waste, bring up a smile :).
+
+### Working Strategy
+
+Sellers can register in Usedbrains by filling the details, and post their listings on the
+site, whole registered users can browse, inquire about the product and contact the seller and can make a deal
+UB provides a platform for it(the service can be scaled down to be used for single merchant.)
+
 
 ---
 
@@ -63,25 +102,28 @@
 13. Model - **STR** (Model of item)
 14. Year - **STR**  (Year of buying)
 15. Spec - **TEXT** (not necessory)
-16. processor - **STR** (Add a dropdown later)
-17. GPU - **BOOL** (yes/no) (default: NO)
-18. GPU MODEL - **STR** (not necessory)
-19. Screen Size - **INT** (in inches)
-20. Condition(dropdown) - **STR** (dropdown) (Condition of the product)
-21. condition - **TEXT** (description - optional)
-22. Listing Date(list_date) - **DATE** (auto fetch)
-23. is_published - **BOOL** (def: True) (the produced set to be published by default)
+16. in_warranty - **BOOL** (not_necessory)
+17. processor - **STR** (Add a dropdown later)
+18. ram - **STR** (str) (dropdown)
+19. graphics_type - **STR** (intgrated/dedicated) (dropdown)
+20. GPU MODEL - **STR** (not necessory)
+21. Screen Size - **INT** (in inches) (dropdown + text)
+22. Condition(dropdown) - **STR** (dropdown) (Condition of the product)
+23. Condition_description - **TEXT** (optional)
+24. specifications - **TEXT** (description - optional)
+25. Listing Date(list_date) - **DATE** (auto fetch)
+26. is_published - **BOOL** (def: True) (the produced set to be published by default)
 
     *Main Image*
-24. Product Image - **STR** (optional) (not sharing an actual image, storing the location of the image)
+27. Product Image - **STR** (optional) (not sharing an actual image, storing the location of the image)
 
     *6 sub-images*
-25. photo_1: **STR**
-26. photo_2: **STR**
-27. photo_3: **STR**
-28. photo_4: **STR**
-29. photo_5: **STR**
-30. photo_6: **STR**
+28. photo_1: **STR**
+29. photo_2: **STR**
+30. photo_3: **STR**
+31. photo_4: **STR**
+32. photo_5: **STR**
+33. photo_6: **STR**
 
 
 ### SELLER DB (contains information about a seller/user)
@@ -110,7 +152,8 @@ Inquires that sent to the seller
 7. phone: **STR**
 8. message: **TEXT**
 9. contact_date: **DATE**
-10. is_authentic: **BOOL** ( A seller can be set authenticate in the admin panel,
+10. is_mvp: **BOOL** (to declare the top sellers)
+11. is_authentic: **BOOL** ( A seller can be set authenticate in the admin panel,
     give em a badge or something in the sellers page)
 
 * Any inquiries made to the contact
@@ -156,7 +199,25 @@ use `\d listings_listing` (listings_listing is the table name),
 * Django admin staff status indicates a user is admin/not.(admin area is staff only). Check or uncheck the staff
   status in the user lists.
 * Edit the `admin.py` in the listings and sellers app to get them up on the admin page. Register the models
+#### Setup media paths
 * Add media root and url (Tells django where to look and store media).`MEDIA_ROOT = os.path.join(BASE_DIR, 'media')`
 `MEDIA_URL = '/media/'`
 * Also, in main `project.urls.py` add `[...] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)`
-* 
+#### Setup static paths (already set up; documenting)
+* The static files are in folder(added early): `app/app/static/`(all css, js, img files or the proj. resources) - it is specified in the `STATICFILES_DIRS`.
+* It is added to main static (`STATIC_ROOT = os.path.join(BASE_DIR, 'static')`) using the collectstatic management command(`python manage.py collectstatic`),
+-which collects static from all the folders, in the STATICFILES_DIRS, in the project the it is tha same as specified
+above
+```python
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'app/static')
+]
+```
+* Then combines all the admin static files with it then copy them to STATIC_ROOT(`static` folder in the main directoty), the app takes all static files from here.
+
+#### Adding data
+
+The sellers are  added by admins through admin area in the first version(need to update, that a user can be
+registered as a seller(connecting a user with seller table)).
+
+*

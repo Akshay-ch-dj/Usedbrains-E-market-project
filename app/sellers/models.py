@@ -14,6 +14,7 @@ class Seller(models.Model):
     description = models.TextField(blank=True)
     email = models.EmailField(max_length=255, unique=True)
     is_authentic = models.BooleanField(default=False)
+    is_mvp = models.BooleanField(default=False)
     join_date = models.DateTimeField(default=datetime.now, blank=True)
 
     def __str__(self):

@@ -18,13 +18,17 @@ class Listing(models.Model):
     item_model = models.CharField(max_length=255)
     year = models.CharField(max_length=100)
     processor = models.CharField(max_length=255)
-    gpu = models.BooleanField(default=False)
+    ram = models.CharField(max_length=255, default='2 GB')
+    memory = models.CharField(max_length=255, default='256GB HDD')
+    graphics_type = models.CharField(max_length=255, default='Integrated')
     gpu_model = models.CharField(max_length=255, blank=True)
-    screen_size = models.DecimalField(max_digits=2, decimal_places=1,
+    screen_size = models.DecimalField(max_digits=3, decimal_places=1,
                                       blank=True)
+    in_warranty = models.BooleanField(default=False)
     # Extra specifications
-    specifications = models.TextField(blank=True)
+    other_specifications = models.TextField(blank=True)
     item_condition = models.CharField(max_length=255)
+    condition_description = models.TextField(blank=True)
     list_date = models.DateTimeField(default=datetime.now, blank=True)
     is_published = models.BooleanField(default=True)
     # Main photo
