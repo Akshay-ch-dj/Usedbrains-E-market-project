@@ -74,56 +74,56 @@ UB provides a platform for it(the service can be scaled down to be used for sing
 
 
 ## MODEL/DB FIELDS
+---
 
 ### LISTING (Storing Info on a listing on the page)
 
 1. id - auto increment id for the listings table
    * Data type "int".
-   * id - **INT**
+   * id - **INT** (serial int later if needed into other more secure uuid or something)
+
+    (Django creates an id field automatically)
 2. Need to connect sellers to listings - A seller is one who posting the listings
    * listing and seller table can be connected using a **FOREIGN KEY**
    * seller **INT** (**FOREIGN KEY** [From seller table])
 
-   (Simply the entire seller is connected to the listing- can attach name, details,
+   (The entire seller  is connected to the listing- can attach name, details,
    image from seller table/db to the listings.)
 3. title - **STR** (MODEL-PRICE)
+<br>
+(*address - **STR** (Can be connected to seller foreign key)* *city - **STR*** *state - **STR***
+*pincode - **STR*** *phone number- **STR***)
+<br>
 
-    <br>
-4. *address - **STR** (Can be connected to seller foreign key)*
-5. *city - **STR***
-6. *state - **STR***
-7. *pincode - **STR***
-8. *phone number- **STR***
+4.  description - **TEXT**
+5.  price - **INT**  (req)
+6.  type - **STR**  (Dropdown laptop/tablet/desktop/parts UI element(admin))
+7.  Model - **STR** (Model of item)
+8.  Year - **STR**  (Year of buying)
+9.  Spec - **TEXT** (not necessary)
+10. in_warranty - **BOOL** (default: False)
+11. processor - **STR** (Add a dropdown later (UI element))
+12. ram - **STR** (str) (dropdown UI)
+13. graphics_type - **STR** (integrated/dedicated) (dropdown)
+14. GPU MODEL - **STR** (not necessary)
+15. Screen Size - **INT** (in inches) (dropdown + text)
+16. Other_specifications - **TEXT** (description - optional)
+17. Condition(dropdown) - **STR** (dropdown) (Condition of the product)
+18. Condition_description - **TEXT** (optional)
+20. Listing Date(list_date) - **DATE** (auto fetch)
+21. is_published - **BOOL** (def: True) (the produced set to be published by default)
 
-    <br>
-9.  description - **TEXT**
-10. price - **INT**  (req)
-11. type - **STR**  (Dropdown laptop/tablet/desktop/parts)
-13. Model - **STR** (Model of item)
-14. Year - **STR**  (Year of buying)
-15. Spec - **TEXT** (not necessory)
-16. in_warranty - **BOOL** (not_necessory)
-17. processor - **STR** (Add a dropdown later)
-18. ram - **STR** (str) (dropdown)
-19. graphics_type - **STR** (intgrated/dedicated) (dropdown)
-20. GPU MODEL - **STR** (not necessory)
-21. Screen Size - **INT** (in inches) (dropdown + text)
-22. Condition(dropdown) - **STR** (dropdown) (Condition of the product)
-23. Condition_description - **TEXT** (optional)
-24. specifications - **TEXT** (description - optional)
-25. Listing Date(list_date) - **DATE** (auto fetch)
-26. is_published - **BOOL** (def: True) (the produced set to be published by default)
 
     *Main Image*
-27. Product Image - **STR** (optional) (not sharing an actual image, storing the location of the image)
+22. Product Image - **STR** (required) (db storing the location of the image: so STR)
 
-    *6 sub-images*
-28. photo_1: **STR**
-29. photo_2: **STR**
-30. photo_3: **STR**
-31. photo_4: **STR**
-32. photo_5: **STR**
-33. photo_6: **STR**
+    *six sub-images* (not necessary)
+23. photo_1: **STR**
+24. photo_2: **STR**
+25. photo_3: **STR**
+26. photo_4: **STR**
+27. photo_5: **STR**
+28. photo_6: **STR**
 
 
 ### SELLER DB (contains information about a seller/user)
@@ -138,6 +138,10 @@ UB provides a platform for it(the service can be scaled down to be used for sing
 9. description - **TEXT**
 10. email - **STR**
 11. join_date - **DATE** (Date they joined)
+12. is_mvp: **BOOL** (to declare the top sellers)
+11. is_authentic: **BOOL** ( A seller can be set authenticate in the admin panel,
+give em a badge or something in the sellers page)
+
 
 
 ### CONTACT SELLER
@@ -152,16 +156,12 @@ Inquires that sent to the seller
 7. phone: **STR**
 8. message: **TEXT**
 9. contact_date: **DATE**
-10. is_mvp: **BOOL** (to declare the top sellers)
-11. is_authentic: **BOOL** ( A seller can be set authenticate in the admin panel,
-    give em a badge or something in the sellers page)
-
-* Any inquiries made to the contact
 
 
-> #### Adding The Models
+> ### Adding The Models
+***
 
-In django models.ImageField(), define where the files get uploaded(db stores the
+&emsp; In django models.ImageField(), define where the files get uploaded(db stores the
 address of that location), -- Set that `upload_to='photos/%Y/%m/%d/'` giving the
 photos a date folder structure (year/month/date/<here_the_photo>)
 
@@ -220,4 +220,21 @@ STATICFILES_DIRS = [
 The sellers are  added by admins through admin area in the first version(need to update, that a user can be
 registered as a seller(connecting a user with seller table)).
 
-*
+#### Customizing Django Admin
+
+* Changing the company name and logo
+    inside templates create admin section, extend the admin template with `{% extends 'admin/base.html' %} {% load static %}` and cadd a block `{% block branding %} {% endblock %}`, then change "h1" and other tags.
+    (add a logo as img(`{% static 'img/logo.png' %}`) and other html elements in here.)
+
+    For adding the css,
+    ```html
+    {% block extrastyle %}
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+    {% endblock %}
+    ```
+    (add the css file in the target static/css folder,)
+    Style the elements overriding the default class Use the chrome inspect tools to identify the classes
+
+* Customizing the admin panel tables
+    Add the custom class to modify the admin panel in the `admin.py` of both seller and listing pages.
+    in the django documentation explore all cool things one can do [Django admin listings](https://docs.djangoproject.com/en/3.1/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display).

@@ -6,4 +6,10 @@
 
 
 > 11/09/2020
-- [ ] Link the models to the admin page
+- [x] Link the models to the admin page
+- [x] created sample data through admin panel
+
+
+> 12/09/2020
+- [x] customizing admin panel (just basic)
+- [ ] Customizing admin panel tables
