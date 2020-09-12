@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'pages',
     'listings',
     'sellers',
+    # For performing the comma seperation ext app
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [

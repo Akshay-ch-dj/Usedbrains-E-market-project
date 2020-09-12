@@ -12,4 +12,5 @@
 
 > 12/09/2020
 - [x] customizing admin panel (just basic)
-- [ ] Customizing admin panel tables
+- [x] Customizing admin panel tables
+- [ ] Fetching data from the database and displaying front end

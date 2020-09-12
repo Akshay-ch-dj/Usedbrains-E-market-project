@@ -238,3 +238,22 @@ registered as a seller(connecting a user with seller table)).
 * Customizing the admin panel tables
     Add the custom class to modify the admin panel in the `admin.py` of both seller and listing pages.
     in the django documentation explore all cool things one can do [Django admin listings](https://docs.djangoproject.com/en/3.1/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display).
+
+---
+> ### Fetching and displaying data
+***
+
+* The key idea is to loop through the all the listings and displaying the template
+html with the data fetched.(template html is in the listings.html)
+* Use django template logic for that. grab one template loop through the listings
+replace the data.(on the UI front need to rearrange the icons create more of em
+use fontawsome old cdn for that icons style it matching the theme)
+* Remember to add photos using jinja, add a `.url` with the src. as
+`src="{{ listing.photo_main.url }}"`, to fetch from the media path specified in
+the main `urls.py`.
+* To add comma separation to the price fields
+    - Use some ext app like "humanize" to get the functionality, use the method
+    intComma(with a pipe character, `{{ listing.price | intcomma }}`), to get the separation. here, in the [documentation](https://docs.djangoproject.com/en/3.1/ref/contrib/humanize/), can find more about the "django.contrib.humanize"
+
+        (lets go with that way now, but can an always add a script that does the same in the views.py- modify the listing then pass that one to the renderer.)
+        Added custom filter in the `listings/templatetags/my_listings.py` to convert indian currency format
