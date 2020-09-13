@@ -274,4 +274,10 @@ Linter tweaking in vs code: Go to settings-> Python linting > "--errors-only"
 * The logic is 6 pages per page,(3 for testing) if there is only 6 need no pagination.
   (done with the django jinja logic)
 
-> #### Sort the items according to date
+> #### Sort the items according to date and filtering out the unpublished
+* Do it in the views with the data from the models, `Listing.objects.order_by('-list_date').filter(is_published=True)`
+
+> #### Add Listings in the front page.(3 nos. latest)
+* Do the same as for 3 listings (`[:3]`) in home page.
+> #### About page contents
+* 

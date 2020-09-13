@@ -7,7 +7,8 @@ from listings.models import Listing
 
 def index(request):
     # Fetch all data from the listing table
-    listings = Listing.objects.all()
+    # Order by list date and filter out the unpublished ones.
+    listings = Listing.objects.order_by('-list_date').filter(is_published=True)
 
     # Adding pagination as per django documentation(need 6 per page)
     paginator = Paginator(listings, 6)  # 3 for testing

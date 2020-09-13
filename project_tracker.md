@@ -16,4 +16,6 @@
 - [x] Fetching data from the database and displaying front end template
 > 13/09/2020
 - [x] Pagination in the listings page
-- [ ] Sort pages according to date
+- [x] Sort pages according to date and filter out the un-published
+- [x] Add listings to the front page.
+- [ ] Modify the about page.
