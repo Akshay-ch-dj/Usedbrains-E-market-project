@@ -1,7 +1,8 @@
 from django.shortcuts import render
 
-from django.core.paginator import Paginator
+# from django.core.paginator import Paginator
 from listings.models import Listing
+from sellers.models import Seller
 
 # Views for the Pages.
 
@@ -22,4 +23,19 @@ def index(request):
 
 
 def about(request):
-    return render(request, 'pages/about.html')
+    '''
+    View for the about page
+    '''
+    # Get all realtors
+    sellers_list = Seller.objects.order_by('-join_date')
+
+    # Get MVP
+    mvp_sellers = Seller.objects.all().filter(is_mvp=True)
+    authentic_sellers = Seller.objects.all().filter(is_authentic=True)
+
+    context = {
+        'sellers': sellers_list,
+        'mvp_sellers': mvp_sellers,
+        'authentic_sellers': authentic_sellers
+    }
+    return render(request, 'pages/about.html', context)

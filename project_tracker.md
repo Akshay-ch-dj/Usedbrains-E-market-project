@@ -18,4 +18,5 @@
 - [x] Pagination in the listings page
 - [x] Sort pages according to date and filter out the un-published
 - [x] Add listings to the front page.
-- [ ] Modify the about page.
+- [x] Modify the about page, display sellers and add badges.
+- [ ] Single listing page.

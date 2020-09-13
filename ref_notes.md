@@ -280,4 +280,9 @@ Linter tweaking in vs code: Go to settings-> Python linting > "--errors-only"
 > #### Add Listings in the front page.(3 nos. latest)
 * Do the same as for 3 listings (`[:3]`) in home page.
 > #### About page contents
-* 
+* (Find a way to count the number of listings per seller)
+* About page sellers displayed with authentic badges and the seller of the month.
+
+> ### Single Listing Page
+
+---
