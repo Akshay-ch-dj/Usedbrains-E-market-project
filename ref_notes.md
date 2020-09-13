@@ -257,3 +257,21 @@ the main `urls.py`.
 
         (lets go with that way now, but can an always add a script that does the same in the views.py- modify the listing then pass that one to the renderer.)
         Added custom filter in the `listings/templatetags/my_listings.py` to convert indian currency format
+* To enter the foreign key attributes in the listing template, just use this `{{ listing.seller.<attribute> }}`
+* to limit characters in the template for nice viewing can use a filter custom.
+* The "humanize" `timesince` filter does a nice job in filtering the dates.
+* Reduced the font size of time displayed, (make sure `shift+ctrl+Delete` on chrome).
+* Correct the urls in the more info button (href="{% url 'listing' listing.id %}"), also add the 'listing_id'
+in views.py.
+
+
+Linter tweaking in vs code: Go to settings-> Python linting > "--errors-only"
+
+> #### Using pagination in Django
+
+* The [official documentation](https://docs.djangoproject.com/en/3.1/topics/pagination/).
+* To get the exact styled pagination, compare the django pagination with the bootstrap pagination.
+* The logic is 6 pages per page,(3 for testing) if there is only 6 need no pagination.
+  (done with the django jinja logic)
+
+> #### Sort the items according to date

@@ -13,4 +13,7 @@
 > 12/09/2020
 - [x] customizing admin panel (just basic)
 - [x] Customizing admin panel tables
-- [ ] Fetching data from the database and displaying front end
+- [x] Fetching data from the database and displaying front end template
+> 13/09/2020
+- [x] Pagination in the listings page
+- [ ] Sort pages according to date

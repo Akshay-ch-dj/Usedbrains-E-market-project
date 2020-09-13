@@ -69,6 +69,10 @@ img {
 .listing-preview a {
   position: relative; }
 
+#time_stamp {
+  font-size: 0.9rem;
+}
+
 @media (max-width: 991px) {
   #showcase {
     padding-top: 4rem; }
