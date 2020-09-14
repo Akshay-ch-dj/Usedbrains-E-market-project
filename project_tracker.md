@@ -14,9 +14,14 @@
 - [x] customizing admin panel (just basic)
 - [x] Customizing admin panel tables
 - [x] Fetching data from the database and displaying front end template
+
+
 > 13/09/2020
 - [x] Pagination in the listings page
 - [x] Sort pages according to date and filter out the un-published
 - [x] Add listings to the front page.
 - [x] Modify the about page, display sellers and add badges.
-- [ ] Single listing page.
+
+> 14/09/2020
+- [x] Single listing page.
+- [ ] Extended Search bar in the home page.

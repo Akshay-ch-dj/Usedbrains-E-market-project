@@ -294,3 +294,12 @@ Linter tweaking in vs code: Go to settings-> Python linting > "--errors-only"
 request and requested id, use the `get_object_or_404(Listing, pk=listing_id)` to get the specific listing, (displays a 404 page not found error when it absents.)
 * Using separate if statements for checking the photo exists now, using [yesno](https://docs.djangoproject.com/en/3.1/ref/templates/builtins/#yesno) for filtering True/False to Yes/No.
 * Single listing page completed need, add more details and design features.
+
+> ### Search Functionality
+-------
+* When made a search, first check that thing exists, then pull it out of the requests, put them in a variable, then using database filter queries filter out the matching results.
+* Django filter function, used to [filter out](https://docs.djangoproject.com/en/3.1/topics/db/queries/#retrieving-all-objects) from the queryset[ORM]. Here using the filter with '[icontains](https://docs.djangoproject.com/en/3.1/topics/db/search/#a-database-s-more-advanced-comparison-functions)'
+* The keyword search enabled (looking in listing description). For keyword search in the whole datatbase,
+django got a [searchvector](https://docs.djangoproject.com/en/3.1/ref/contrib/postgres/search/) method for postgres only.
+* But it can laggy on large databases, use GIN-(Generalized Inverted Index) feature of postgresql. First Go through [this](https://django.cowhite.com/blog/mastering-search-in-django-postgres/) to get the basics then [this one: by pauloX](https://www.paulox.net/2017/12/22/full-text-search-in-django-with-postgresql/#searchvector), and this [stackoverflow link](https://stackoverflow.com/questions/53799552/django-full-text-search-optimization-postgres).
+* There is another handmade raw method to add search in a pythonish way, check out [Julian Phalip](https://www.julienphalip.com/blog/adding-search-to-a-django-site-in-a-snap/).[need to figure out its performance].

@@ -4,6 +4,9 @@ from django.shortcuts import render
 from listings.models import Listing
 from sellers.models import Seller
 
+from listings.choices import price_choices, state_choices
+
+
 # Views for the Pages.
 
 
@@ -16,7 +19,9 @@ def index(request):
         .filter(is_published=True)[:3]
 
     context = {
-        'index_listings': index_listings_list
+        'index_listings': index_listings_list,
+        'price_choices': price_choices,
+        'state_choices': state_choices
     }
 
     return render(request, 'pages/index.html', context)
