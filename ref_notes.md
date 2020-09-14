@@ -104,12 +104,13 @@ UB provides a platform for it(the service can be scaled down to be used for sing
 10. in_warranty - **BOOL** (default: False)
 11. processor - **STR** (Add a dropdown later (UI element))
 12. ram - **STR** (str) (dropdown UI)
-13. graphics_type - **STR** (integrated/dedicated) (dropdown)
-14. GPU MODEL - **STR** (not necessary)
-15. Screen Size - **INT** (in inches) (dropdown + text)
-16. Other_specifications - **TEXT** (description - optional)
-17. Condition(dropdown) - **STR** (dropdown) (Condition of the product)
-18. Condition_description - **TEXT** (optional)
+13. memory - **STR** (default 2GB)
+14. graphics_type - **STR** (integrated/dedicated) (dropdown)
+15. GPU MODEL - **STR** (not necessary)
+16. Screen Size - **INT** (in inches) (dropdown + text)
+17. Other_specifications - **TEXT** (description - optional)
+18. Condition(dropdown) - **STR** (dropdown) (Condition of the product)
+19. Condition_description - **TEXT** (optional)
 20. Listing Date(list_date) - **DATE** (auto fetch)
 21. is_published - **BOOL** (def: True) (the produced set to be published by default)
 
@@ -286,3 +287,10 @@ Linter tweaking in vs code: Go to settings-> Python linting > "--errors-only"
 > ### Single Listing Page
 
 ---
+* From the model grab the particular listing data, render back to html in listings/views.py.
+* <u>Note:</u> When a page is requested, Django creates an HttpRequest object that contains metadata about the request. Then Django loads the appropriate view, passing the HttpRequest as the first argument to the view function. Each view is responsible for returning an HttpResponse object.(from [django documentation](https://docs.djangoproject.com/en/3.1/ref/request-response/).)
+* Take look here for a refresher of how the [urlpatterns works](https://docs.djangoproject.com/en/3.1/intro/tutorial03/#:~:text=In%20Django%2C%20web%20pages%20and,URL%20after%20the%20domain%20name).
+* Then go to the listings/listing view. when we get a url pattern with the id it calls the view with that
+request and requested id, use the `get_object_or_404(Listing, pk=listing_id)` to get the specific listing, (displays a 404 page not found error when it absents.)
+* Using separate if statements for checking the photo exists now, using [yesno](https://docs.djangoproject.com/en/3.1/ref/templates/builtins/#yesno) for filtering True/False to Yes/No.
+* Single listing page completed need, add more details and design features.

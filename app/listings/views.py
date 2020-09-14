@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -24,7 +24,18 @@ def index(request):
 
 
 def listing(request, listing_id):
-    return render(request, 'listings/listing.html')
+    # Listing id passed in through the url to the view request 'listing_id'
+    single_listing = get_object_or_404(Listing, pk=listing_id)
+
+    imgList = [f"photo_{i}" for i in range(0, 6)]
+    print(imgList)
+
+    context = {
+        'listing': single_listing,
+        'imgList': imgList
+    }
+
+    return render(request, 'listings/listing.html', context)
 
 
 def search(request):
