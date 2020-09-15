@@ -24,4 +24,8 @@
 
 > 14/09/2020
 - [x] Single listing page.
-- [ ] Extended Search bar in the home page.
+- [x] Extended Search bar in the home page.
+
+> 15/09/2020
+- [ ] Adding Full search feature.
+- [ ]
