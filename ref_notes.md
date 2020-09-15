@@ -303,3 +303,21 @@ request and requested id, use the `get_object_or_404(Listing, pk=listing_id)` to
 django got a [searchvector](https://docs.djangoproject.com/en/3.1/ref/contrib/postgres/search/) method for postgres only.
 * But it can laggy on large databases, use GIN-(Generalized Inverted Index) feature of postgresql. First Go through [this](https://django.cowhite.com/blog/mastering-search-in-django-postgres/) to get the basics then [this one: by pauloX](https://www.paulox.net/2017/12/22/full-text-search-in-django-with-postgresql/#searchvector), and this [stackoverflow link](https://stackoverflow.com/questions/53799552/django-full-text-search-optimization-postgres).
 * There is another handmade raw method to add search in a pythonish way, check out [Julian Phalip](https://www.julienphalip.com/blog/adding-search-to-a-django-site-in-a-snap/).[need to figure out its performance].
+* For search items to stay on search bar.
+    * Return the 'GET' values to the search page, then add them as value tag in the html input. `'values': request.GET`
+    * ```html
+      <input type="text" name="keywords" .... value="{{ values.keywords }}">
+      ```
+    * Also add this to other fields, for the dropdown, for one option to stay selected until next,
+    need to add `selected` to an `<option>` in the list, but need a logic for to go correctly, for eg: for price
+    ```html
+    <option value="{{ key }}"
+      {% if key == values.price %}
+          selected
+      {% endif %}
+      >{{ value }}</option>
+    ```
+    * removed the disabled labels in the dropdown.
+
+  ### Authentication and Messaging
+  ---

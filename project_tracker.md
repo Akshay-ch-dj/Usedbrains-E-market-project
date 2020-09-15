@@ -27,5 +27,6 @@
 - [x] Extended Search bar in the home page.
 
 > 15/09/2020
-- [ ] Adding Full search feature.
-- [ ]
+- [x] Adding Full search feature.
+- [x] Search bar optimization
+- [ ] Authentication, login page and implementation.

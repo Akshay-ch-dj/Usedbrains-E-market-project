@@ -87,9 +87,9 @@ def search(request):
 
     # For state
     if ('state' in request.GET) and request.GET['state'].strip():
-        state = request.GET['state']
+        state = request.GET['state']  # gives the key in choices, eg: KL, UP
         queryset_list = queryset_list.filter(
-            seller__state__iexact=state
+            seller__state__iexact=state_choices[state]
         )
 
     # For Price
@@ -109,7 +109,7 @@ def search(request):
         'state_choices': state_choices,
         'price_choices': price_choices,
         'listings': queryset_list,
-        'price': price
+        'values': request.GET
     }
 
     return render(request, 'listings/search.html', context)
