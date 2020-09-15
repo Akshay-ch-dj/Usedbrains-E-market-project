@@ -319,5 +319,23 @@ django got a [searchvector](https://docs.djangoproject.com/en/3.1/ref/contrib/po
     ```
     * removed the disabled labels in the dropdown.
 
-  ### Authentication and Messaging
-  ---
+### Authentication and Messaging
+---
+* Accounts app creation. check the `auth_user` table in `app` database on postgres.
+* **'is_staff'**: - Allow one to login to the backend/not. The “staff” flag controls whether the user is allowed to log in to the admin interface (i.e., whether that user is considered a “staff member” in your organization). Since this same user system can be used to control access to public (i.e., non-admin) sites, this flag differentiates between public users and administrators.(ie, Any user assigned the staff flag, can login to the contributed admin app. Beyond this, they have no other special privileges.)
+* <u>'is_active'</u>: - Activation and deactivation of an account similar to the fb_deactivation,
+  a non_active user does not mean they are not authorized to do anything. For example they are allowed to activate their account.(Only active users are allowed to login.)
+* recommend that you set this('is_active') flag to False instead of deleting accounts; that way, if your applications have any foreign keys to users, the foreign keys won’t break.
+* <u>“Normal” admin users</u> : – that is, active, non-superuser staff members – are granted admin access through assigned permissions. Each object editable through the admin interface has three permissions: a create permission, an edit permission and a delete permission for all the models you had created.
+
+    Django’s admin site uses a permissions system that you can use to give specific users access only to the portions of the interface that they need. When you create a user, that user has no permissions, and it’s up to you to give the user specific permission
+* **'is_superuser'**:- If logged in as a superuser, you have access to create, edit, and delete any object (models). A superuser is just a convenience method to create a user with all permissions. They are just normal users given staff and all permissions by default.
+* There is only one superuser, ie- akshay, in the table.
+
+
+    Create basic login, register templates route them in the urls.py.
+
+* Created login, register, dashboard html files in the templates/account folder.
+* Route the login, logout, register, dashboard urls.
+* For a logged in user the `login` and `register` gets replace with `logout` and `dashboard`.(later)
+Add the highlighting functionality to the links as before.
