@@ -339,3 +339,96 @@ django got a [searchvector](https://docs.djangoproject.com/en/3.1/ref/contrib/po
 * Route the login, logout, register, dashboard urls.
 * For a logged in user the `login` and `register` gets replace with `logout` and `dashboard`.(later)
 Add the highlighting functionality to the links as before.
+* Added static markups to the pages.
+* The form in the `register.html` get posted to the accounts/views.py, direct the target(ie the `action` tag in the
+form) to the register route.
+    ```html
+    <form action="{% url 'login' %}" method="POST">
+    ```
+* Forms don't work in django without the **csrf token** (by adding:- `{% csrf_token %}`  )*(to prevent cross site forgery)*, it just adds a hidden security token that protects the data passed. looks like,
+    ```html
+    <input type="hidden" name="csrfmiddlewaretoken" value="NrDh93tNHlDp5m1YwwFcjP0fBeF3wGdXXXyxeMwVOPzHMzE4fIdxXYXxxe0IpX1n">
+    ```
+* Just identify the request ie, get is http **POST** or **GET**, by testing in the views.py. ***Notice***:- Any
+`print()` statements will print the result in the program running console.
+
+#### Registration and server side validation of the form.
+
+* Basic server side validation checks,
+    * Check for password match.
+    * Check the email and, user name are unique( not in database already).
+* Need to Give a message(like the javascript alert message, "You are successfully registered".)
+* Then login afterwards.
+
+#### **Django messages framework**
+***
+* Django's way to display flash messages, comes inbuilt with a messaging app.
+* Django provides full support for cookie- and session-based messaging, for both anonymous and authenticated users.
+* The messages framework allows you to temporarily store messages in one request and retrieve them for display in a subsequent request (usually the next one). Every message is tagged with a specific level that determines its priority (e.g., info, warning, or error).
+* Messages are implemented through a middleware class and corresponding context processor.
+    * Check `django.contrib.messages` is in INSTALLED_APPS.
+    * MIDDLEWARE contains `django.contrib.sessions.middleware.SessionMiddleware` and `django.contrib.messages.middleware.MessageMiddleware`.( SessionMiddleware must be enabled and appear before MessageMiddleware in MIDDLEWARE, cz The default storage backend relies on sessions.)
+    * The 'context_processors' option of the DjangoTemplates backend defined in your TEMPLATES setting contains `django.contrib.messages.context_processors.messages`.
+
+      [If you don’t want to use messages, you can remove 'django.contrib.messages' from your INSTALLED_APPS, the MessageMiddleware line from MIDDLEWARE, and the messages context processor from TEMPLATES.]
+* Configure as per the instructions in the official [messaging documentation](https://docs.djangoproject.com/en/3.1/ref/contrib/messages/).
+* `FallbackStorage` is the default storage class (class first uses CookieStorage, and falls back to using SessionStorage for the messages that could not fit in a single cookie.).
+* There are DEBUG, INFO, SUCCESS, WARNING and ERROR message types with default message tags as its lowercase versions(Message tags are a string representation of the message level plus any extra tags that were added directly in the view, message tags are used as CSS classes to customize message style based on message type). Can customize the tags using,
+```python
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    # For types
+    messages.INFO: 'error',
+    # For levels
+    50: 'critical',
+}
+```
+* Django's default message levels and string representations are defined in django/contrib/messages/constants.py:
+```
+DEBUG = 10
+INFO = 20
+SUCCESS = 25
+WARNING = 30
+ERROR = 40
+
+DEFAULT_TAGS = {
+    DEBUG: 'debug',
+    INFO: 'info',
+    SUCCESS: 'success',
+    WARNING: 'warning',
+    ERROR: 'error',
+}
+
+DEFAULT_LEVELS = {
+    'DEBUG': DEBUG,
+    'INFO': INFO,
+    'SUCCESS': SUCCESS,
+    'WARNING': WARNING,
+    'ERROR': ERROR,
+}
+```
+* When comparing with bootstrap, Django's most severe level is `error` whereas Bootstrap's is `danger`. To To make Django's error level messages display easily in Bootstrap's alert-danger class. change the DEFAULT_TAGS entry from ERROR: 'error' to ERROR: 'danger'
+* Take a good read on messages [here:](https://django-advanced-training.readthedocs.io/en/latest/features/contrib.messages/#2-deep-dive-code-walk-through)
+
+#### message implementation in the project
+
+* Add the message tags to the settings file, to compliment with the bootstrap theme.
+  ```python
+  MESSAGE_TAGS = {
+      messages.ERROR: 'danger'
+  }
+  ```
+* For the message body create '_alerts.html' in partials.***(Snippet can be used for all bootstrap-django applications)***.
+* Add the '_alerts.html' to both register and login htmls(where it is needed), check it using a sample
+redirect in the views.(can style it more if needed)
+
+* #### ***Adding some custom javascripts*** to the alerts
+  * To dismiss the error on its own. add js in app/static/js/main.js
+  * Using jquery to do the fadeout., run `collectstatic` django command to get that into main static.
+    (remember to clear cache of the browser after js/css changes(`shift + F5`, or full cache with`ctrl + shift + Delete`))
+  * Now the messages set up, all need to do is display the when some logic fails, for eg. if passwords don't match,
+    just call,
+    ```python
+    messages.error(request, 'Password not matching')
+    return redirect('register')
+    ```

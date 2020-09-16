@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -151,3 +152,8 @@ MEDIA_URL = '/media/'
 # STATIC_ROOT = '/vol/web/static'
 # custom User model authorization
 # AUTH_USER_MODEL = 'core.User'
+
+# For django Messages imported from django/contrib/messages/constants.py
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
+}

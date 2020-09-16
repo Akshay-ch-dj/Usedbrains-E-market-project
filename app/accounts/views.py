@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 
 # Views for the accounts app.
 
@@ -8,7 +9,12 @@ def register(request):
     '''
     Views for the register page
     '''
-    return render(request, 'accounts/register.html')
+    if request.method == 'POST':
+        # Logic for registration
+        messages.error(request, 'Testing error message')
+        return redirect('register')
+    else:
+        return render(request, 'accounts/register.html')
 
 
 # For the login page
@@ -16,7 +22,11 @@ def login(request):
     '''
     Views for the login page
     '''
-    return render(request, 'accounts/login.html')
+    if request.method == 'POST':
+        # Logic for login
+        pass
+    else:
+        return render(request, 'accounts/login.html')
 
 
 # For the logout page

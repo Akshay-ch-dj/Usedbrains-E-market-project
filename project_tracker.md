@@ -29,4 +29,7 @@
 > 15/09/2020
 - [x] Adding Full search feature.
 - [x] Search bar optimization
-- [ ] Authentication, login page and implementation.
+- [x] Authentication, login page and implementation:- Added static login, logout and dashboard pages
+> 16/09/2020
+- [x] Setup the django message template, tested it.
+- [ ] Registration and server side validation of the registration form.
