@@ -432,3 +432,35 @@ redirect in the views.(can style it more if needed)
     messages.error(request, 'Password not matching')
     return redirect('register')
     ```
+
+#### Adding User registration
+***
+
+* Check the passwords, Bring in the default Django User model for checking the users and add new users
+#### **[Django User Model]()**
+  * The User model default got, these basic attributes.(Use a custom user model for any further requirements)
+  * **username** (Required. 150 characters or fewer)
+  * **first_name** (Optional (blank=True). 150 char)
+  * **last_name** (Optional (blank=True). 150 char)
+  * **email** (Optional (blank=True))
+  * **password** (Required. A hash of, and metadata about, the password. (Django doesn’t store the raw password.))
+  * **groups** (Many-to-many relationship to Group)
+  * **user_permissions** (Many-to-many relationship to Permission)
+  * **is_staff** (Boolean. Designates whether this user can access the admin site.)
+  * **is_active** (Boolean.) (check out how to give more permissions to inactive users on documentation)
+  * **is_superuser** (Boolean.)
+  * **last_login** (datetime of the user’s last login)
+  * **date_joined** (datetime designating when the account was created. Is set to the current date/time by default when the account is create)
+* Validate the data, for add new user to the model using `User.objects.create_user(username=username, ...)`,
+* The user can be logged in directly after logging in, or can redirect them to the login page
+
+    To login directly after registering(bring in 'auth' from django.contrib)
+    ```python
+    # Login after register
+    auth.login(request, user)
+    messages.success(request, 'Registration Completed and \
+                     Successfully logged in')
+    return redirect('index')
+    ```
+* Add the '_alert' to the index page too, `{% include 'partials/_alerts.html' %}`, to receive alerts on front
+  pages(future)

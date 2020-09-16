@@ -31,5 +31,6 @@
 - [x] Search bar optimization
 - [x] Authentication, login page and implementation:- Added static login, logout and dashboard pages
 > 16/09/2020
-- [x] Setup the django message template, tested it.
-- [ ] Registration and server side validation of the registration form.
+- [x] Setup the django message template, test it.
+- [x] Registration and server side validation of the registration form.
+- [ ] Setup the login, logout and navbars.
