@@ -39,4 +39,6 @@
 - [x] contacts app and its db.
 - [x] Store the inquires.
 - [x] Make one user can only have one active inquiry at a time on an individual item.
-- [ ] Add sending email to seller feature.
+- [x] Add sending email to seller feature, coding completed need extra digging cz of google extra
+  security.
+- [ ] Make the dashboard dynamic.

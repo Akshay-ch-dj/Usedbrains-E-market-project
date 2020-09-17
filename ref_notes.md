@@ -511,3 +511,25 @@ inquiries, need ip tracking and stuffs(or it can be done simply with cross check
 * Do that for unregistered users with an else, done checking email OR phone matches for an unregistered user,
 it will not get recorded.
 * The two systems only works if the inquires are read and cleared regularly.
+
+### [Django Emails](https://docs.djangoproject.com/en/3.1/topics/email/)
+---
+
+* Django customized python "smtplib" module, import from django.core.mail module.
+  ```python
+  from django.core.mail import send_mail
+
+  send_mail(
+      'Subject here',
+      'Here is the message.',
+      'from@example.com',
+      ['to@example.com'],
+      fail_silently=False,
+  )
+
+  ```
+  * Configure the host, port in `settings.py`
+    * EMAIL_HOST = 'smtp.gmail.com'
+    * <u>SMTP PORT</u>:- [SMTP](https://www.sparkpost.com/blog/what-smtp-port/) (Simple Mail Transfer Protocol) is the basic standard that mail servers use to send email to one another across the internet.
+    * use the standard port 587.
+    * Done but to work with gmail it needs [apppassword](https://support.google.com/accounts/answer/185833?p=InvalidSecondFactor&visit_id=637359524955227511-2281000066&rd=1).
