@@ -37,4 +37,5 @@
 - [x] Setup the login, logout and navbars.
 - [x] Change the titles for each page
 - [x] contacts app and its db.
-- [ ] Store the inquires.
+- [x] Store the inquires.
+- [ ] Make one user-one active inquiry on an item.

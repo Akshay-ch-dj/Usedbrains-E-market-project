@@ -499,4 +499,9 @@ redirect in the views.(can style it more if needed)
     * Add functionality to Sent seller an email, if an inquiry done, for that pass the `listing.seller.email` and `listing.id` back to the view.
 
 * **Submitting the form**
-    * rt
+    * First fetched the posted data from the form (user_id, seller_email, listing_id, listing_title_, name(user), email, phone, message)
+    * Got a strange error, with no clue happened at line`listing_title = request.POST['listing_title']`, there is no much data in the error titled *"MultiValueDictKeyError at /contacts/contact"*, looking at the POSTed data, it is found that, the title is not getting posted (but it is in the form field, looking strange)
+    * OOh, its because of the disabled(I found it and removed first, but not done a whole round refresh)
+    * Another Error, now it cant fetch the page redirected `return redirect(f'/listing/{listing_id}')`, ie. to `http://127.0.0.1:8000/listing/3`. It is the url of the 'listing-3' but throwing a 404 error.
+    * oh, its just a mis serach ie the url must be `/listings/{listing_id}` not `/listing/{listing_id}`. Its solved.
+* Just make it so that you cannot spam the enquiry, ie one user can make only one active inquiry on an item
