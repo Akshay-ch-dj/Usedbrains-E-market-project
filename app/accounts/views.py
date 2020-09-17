@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib import messages
+from django.contrib import messages, auth
 
 # Default Django User model
 from django.contrib.auth.models import User
@@ -65,8 +65,19 @@ def login(request):
     Views for the login page
     '''
     if request.method == 'POST':
-        # Logic for login
-        pass
+        # Accept the username and password
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = auth.authenticate(username=username, password=password)
+        # If user is found & matched in the datatbase
+        if user is not None:
+            auth.login(request, user)
+            messages.success(request, 'You are now logged in')
+            return redirect('dashboard')
+        else:
+            messages.error(request, 'Invalid Credentials')
+            return redirect('login')
     else:
         return render(request, 'accounts/login.html')
 
@@ -76,9 +87,12 @@ def logout(request):
     '''
     Views for the logout page
     '''
-
-    # redirect the user back to the index page.
-    return redirect('index')
+    if request.method == 'POST':
+        auth.logout(request)
+        # Message
+        messages.success(request, 'You are now successfully logged out')
+        # redirect the user back to the index page.
+        return redirect('index')
 
 
 # For the dashboard page

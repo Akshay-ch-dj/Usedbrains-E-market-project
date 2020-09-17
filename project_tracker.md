@@ -33,4 +33,7 @@
 > 16/09/2020
 - [x] Setup the django message template, test it.
 - [x] Registration and server side validation of the registration form.
-- [ ] Setup the login, logout and navbars.
+> 17/09/2020
+- [x] Setup the login, logout and navbars.
+- [ ] Change the titles for each page
+- [ ] contacts app and its db.

@@ -464,3 +464,21 @@ redirect in the views.(can style it more if needed)
     ```
 * Add the '_alert' to the index page too, `{% include 'partials/_alerts.html' %}`, to receive alerts on front
   pages(future)
+
+#### Login Page Implementation
+---
+* Login page done with the `auth.login(request, user)`, redirecting to dash board
+
+#### Dashboard Navbar implementation
+
+* Use an `if-else` jinja logic to display the login register links only if the user is not logged in
+  (`{% if user.is_authenticated %} {% else %}`).( there is access to user object within all templates.)
+* If user is logged in need to display the 'logout' and 'dashboard' links instead of the above.
+* For a `Logout`, It cant just be a link because, we need get a http POST request in the views to log out a
+  user, therefore it must be a form with a `method=POST`.('Can use the javascript with a fetch API or AJAX, but going in a simple way.')
+* Use javascript to fetch the form with 'POST' and submit the form( it will the submit the form to the `action` url in the form. which routed in the urls.py and to the views.py)
+* In views.py, check for `request.POST`, and log out the user.
+* Give the message alerts to 'dashboard' too.
+
+#### Change the titles for each page.
+---
