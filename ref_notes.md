@@ -482,3 +482,10 @@ redirect in the views.(can style it more if needed)
 
 #### Change the titles for each page.
 ---
+* Adding another block, need "Usedbrains" main title on all pages with the individual subtitles
+* In the 'base' template, `<title>Usedbrains {% block title %}{% endblock %}</title>`.
+* Modify before the content block in every page, `{% block title %}{{ listing.title }}{% endblock %}`
+
+### Adding The contacts app for inquires
+---
+*
