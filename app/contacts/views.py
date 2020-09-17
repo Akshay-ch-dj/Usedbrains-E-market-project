@@ -20,6 +20,26 @@ def contact(request):
         user_phone = request.POST['phone']
         user_message = request.POST['message']
 
+        # Check if user has made an inquiry already
+        if request.user.is_authenticated:
+            user_id = request.user.id
+            has_contacted = Contact.objects.all().filter(listing_id=listing_id,
+                                                         user_id=user_id)
+            if has_contacted:
+                messages.error(request, "You have already made an inquiry \
+                    for this item")
+                return redirect(f'/listings/{listing_id}')
+
+        # Inquiry check for not authenticated users, check the email and phone
+        else:
+            email_check = Contact.objects.all().filter(email=user_email)
+            phone_check = Contact.objects.all().filter(phone=user_phone)
+
+            if email_check or phone_check:
+                messages.error(request, "An inquiry with this email or phone \
+                    done already")
+                return redirect(f'/listings/{listing_id}')
+
         contact = Contact(listing=listing_title,
                           listing_id=listing_id,
                           name=user_name,

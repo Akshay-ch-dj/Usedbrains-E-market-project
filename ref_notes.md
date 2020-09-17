@@ -504,4 +504,10 @@ redirect in the views.(can style it more if needed)
     * OOh, its because of the disabled(I found it and removed first, but not done a whole round refresh)
     * Another Error, now it cant fetch the page redirected `return redirect(f'/listing/{listing_id}')`, ie. to `http://127.0.0.1:8000/listing/3`. It is the url of the 'listing-3' but throwing a 404 error.
     * oh, its just a mis serach ie the url must be `/listings/{listing_id}` not `/listing/{listing_id}`. Its solved.
-* Just make it so that you cannot spam the enquiry, ie one user can make only one active inquiry on an item
+* Just make it so that you cannot spam the enquiry, ie one user can make only one active inquiry on an item,
+done by filtering and checking whether an early contact exists in db.
+* But this method works only for registered users, for unregistered users to prevent them from making multiple
+inquiries, need ip tracking and stuffs(or it can be done simply with cross checking the phone number and email)
+* Do that for unregistered users with an else, done checking email OR phone matches for an unregistered user,
+it will not get recorded.
+* The two systems only works if the inquires are read and cleared regularly.

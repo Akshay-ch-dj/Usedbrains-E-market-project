@@ -38,4 +38,5 @@
 - [x] Change the titles for each page
 - [x] contacts app and its db.
 - [x] Store the inquires.
-- [ ] Make one user-one active inquiry on an item.
+- [x] Make one user can only have one active inquiry at a time on an individual item.
+- [ ] Add sending email to seller feature.
