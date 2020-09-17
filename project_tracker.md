@@ -36,5 +36,5 @@
 > 17/09/2020
 - [x] Setup the login, logout and navbars.
 - [x] Change the titles for each page
-- [ ] contacts app and its db.
+- [x] contacts app and its db.
 - [ ] Store the inquires.

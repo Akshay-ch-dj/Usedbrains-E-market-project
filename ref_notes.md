@@ -488,4 +488,15 @@ redirect in the views.(can style it more if needed)
 
 ### Adding The contacts app for inquires
 ---
-*
+* `startapp` contacts.
+* Make a model: **Contact**
+* Register it in the admin area.
+* Auto filling the inquiry form with the user data.
+    * Inquiry model is at listing page end.
+    * If the user is logged in, his name, id, email all need to be auto submitted, use an "if-else"
+    jinja logic to do that.
+    * Put a hidden `<input>`, if the user is authenticated, to pass un `id`.
+    * Add functionality to Sent seller an email, if an inquiry done, for that pass the `listing.seller.email` and `listing.id` back to the view.
+
+* **Submitting the form**
+    * rt
