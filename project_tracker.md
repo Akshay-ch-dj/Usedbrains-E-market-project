@@ -41,4 +41,14 @@
 - [x] Make one user can only have one active inquiry at a time on an individual item.
 - [x] Add sending email to seller feature, coding completed need extra digging cz of google extra
   security.
-- [ ] Make the dashboard dynamic.
+> 22/09/2020
+- [x] Make the dashboard dynamic.
+
+
+
+
+
+## Updates: Improvement Ideas Phase 1
+---
+- [ ] Update the lightbox, reduce the animation speed, display each image in the same window.
+- [ ] Uniform template box size for each listing, hover over to get into full size.

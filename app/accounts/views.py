@@ -3,6 +3,7 @@ from django.contrib import messages, auth
 
 # Default Django User model
 from django.contrib.auth.models import User
+from contacts.models import Contact
 
 # Views for the accounts app.
 
@@ -70,7 +71,7 @@ def login(request):
         password = request.POST['password']
 
         user = auth.authenticate(username=username, password=password)
-        # If user is found & matched in the datatbase
+        # If user is found & matched in the database
         if user is not None:
             auth.login(request, user)
             messages.success(request, 'You are now logged in')
@@ -100,4 +101,11 @@ def dashboard(request):
     '''
     Views for the dashboard page
     '''
-    return render(request, 'accounts/dashboard.html')
+    # Get the contact made by the current user
+    user_contacts = Contact.objects.order_by('-contact_date').filter(
+        user_id=request.user.id)
+
+    context = {
+        'contacts': user_contacts
+    }
+    return render(request, 'accounts/dashboard.html', context)

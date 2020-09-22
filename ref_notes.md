@@ -533,3 +533,18 @@ it will not get recorded.
     * <u>SMTP PORT</u>:- [SMTP](https://www.sparkpost.com/blog/what-smtp-port/) (Simple Mail Transfer Protocol) is the basic standard that mail servers use to send email to one another across the internet.
     * use the standard port 587.
     * Done but to work with gmail it needs [apppassword](https://support.google.com/accounts/answer/185833?p=InvalidSecondFactor&visit_id=637359524955227511-2281000066&rd=1).
+
+### Making the dashboard dynamic
+---
+* Modify the dashboard views and the rendered html.
+
+
+<br>
+
+---
+## The First basic working of the project completed..
+---
+
+1. ### UI clearing..
+   * The base.html clearing
+2. ### Make scalable responsive templates.

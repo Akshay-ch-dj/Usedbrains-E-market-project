@@ -1,6 +1,6 @@
 from django.shortcuts import redirect
 from django.contrib import messages
-from django.core.mail import send_mail
+# from django.core.mail import send_mail
 from contacts.models import Contact
 
 
@@ -13,7 +13,7 @@ def contact(request):
         # listing_id, listing(title), name(user), email, phone, message
         listing_id = request.POST['listing_id']
         user_id = request.POST['user_id']
-        seller_email = request.POST['seller_email']
+        # seller_email = request.POST['seller_email']
         listing_title = request.POST['listing_title']
         user_name = request.POST['name']
         user_email = request.POST['email']
@@ -51,14 +51,14 @@ def contact(request):
         contact.save()
 
         # Send mail
-        send_mail(
-            'Usedbrains Listing Inquiry',
-            'There has been an inquiry for ' + listing_title + '. Sign in to \
-                the admin panel for more info',
-            'akshaych.dev@gmail.com',
-            [seller_email, 'akshaych203@gmail.com'],
-            fail_silently=False
-        )
+        # send_mail(
+        #     'Usedbrains Listing Inquiry',
+        #     'There has been an inquiry for ' + listing_title + '. Sign in to \
+        #         the admin panel for more info',
+        #     'akshaych.dev@gmail.com',
+        #     [seller_email, 'akshaych203@gmail.com'],
+        #     fail_silently=False
+        # )
 
         messages.success(request, "Your interest recorded, the seller will \
             get back to you soon")
