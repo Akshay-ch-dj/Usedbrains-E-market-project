@@ -13,7 +13,6 @@ happening,
 But in a developing country like india, not every young minds got a chance to get a brand new laptop for
 their learning, as even a running 10 year old laptop can be good at usual browsing, online classes and coding, a lot more people get benefitted. Usedbrains is made from that point of view to make that right connection happen,
 
-
 This project is developed as a bridge between those sellers and those people who now can't afford
 a new laptop or just need a secondary basic one.
 
@@ -37,7 +36,6 @@ reduce e-waste, bring up a smile :).
 Sellers can register in Usedbrains by filling the details, and post their listings on the
 site, whole registered users can browse, inquire about the product and contact the seller and can make a deal
 UB provides a platform for it(the service can be scaled down to be used for single merchant.)
-
 
 ---
 
@@ -547,4 +545,6 @@ it will not get recorded.
 
 1. ### UI clearing..
    * The base.html clearing
+   * index.html clearing.
+       1. Reduce the size of search.
 2. ### Make scalable responsive templates.

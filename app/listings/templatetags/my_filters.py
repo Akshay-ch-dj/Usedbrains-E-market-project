@@ -14,4 +14,10 @@ def rupeeCommaInsert(num):
     return ''.join(myList)
 
 
+def charLimitter(str):
+    limit = 20
+    return str[0:limit+1]
+
+
 register.filter('insertComma', rupeeCommaInsert)
+register.filter('charLimitter', charLimitter)

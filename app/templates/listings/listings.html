@@ -8,29 +8,29 @@
 {% block content %}
 
 <section id="showcase-inner" class="py-5 text-white">
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-md-12">
-                <h1 class="display-4">Browse Our Properties </h1>
-                <p class="lead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, pariatur!</p>
-            </div>
-        </div>
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <h1 class="display-4">Choose your second brain!</h1>
+        <p class="lead">From the wide range of laptops and computer peripherals!</p>
+      </div>
     </div>
+  </div>
 </section>
 
 <!-- Breadcrumb -->
 <section id="bc" class="mt-3">
-    <div class="container">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="{% url 'index' %}">
-                        <i class="fas fa-home"></i> Home</a>
-                </li>
-                <li class="breadcrumb-item active"> Browse Listings</li>
-            </ol>
-        </nav>
-    </div>
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="{% url 'index' %}">
+            <i class="fas fa-home"></i> Home</a>
+        </li>
+        <li class="breadcrumb-item active"> Browse Items</li>
+      </ol>
+    </nav>
+  </div>
 </section>
 
 <!-- The Alerts -->
@@ -38,125 +38,131 @@
 
 <!-- Listings -->
 <section id="listings" class="py-4">
-    <div class="container">
-        <div class="row">
+  <div class="container">
+    <div class="row">
 
-            {% if listings %}
-                {% for listing in listings %}
-                    <!-- Grab all items from listing template -->
-                    <!-- Listing template -->
-                    <div class="col-md-6 col-lg-4 mb-4">
-                        <div class="card listing-preview">
-                            <img class="card-img-top" src="{{ listing.photo_main.url }}" alt="">
-                            <div class="card-img-overlay">
-                                <h2>
-                                    <span class="badge badge-secondary text-white">₹ {{ listing.price | insertComma }}</span>
-                                </h2>
-                            </div>
-                            <div class="card-body">
-                                <div class="listing-heading text-center">
-                                    <h4 class="text-primary">{{ listing.title }}</h4>
-                                    <p>
-                                        <i class="fas fa-map-marker text-secondary"></i> {{ listing.seller.city }},
-                                        {{ listing.seller.state }} </p>
-                                </div>
-                                <hr>
-                                <div class="row py-2 text-secondary">
-                                    <div class="col-6">
-                                        <i class="fas fa-tv"></i> Screen: {{ listing.screen_size }} in.</div>
-                                    <div class="col-6">
-                                        <i class="fa fa-microchip"></i> {{ listing.processor }}</div>
-                                </div>
-                                <div class="row py-2 text-secondary">
-                                    <div class="col-6">
-                                        <i class="fas fa-memory"></i> {{ listing.ram }}</div>
-                                    <div class="col-6">
-                                        <i class="fas fa-hdd"></i> {{ listing.memory }}</div>
-                                </div>
-                                <hr>
-                                <div class="row py-2 text-secondary">
-                                    <div class="col-12">
-                                        <i class="fas fa-user"></i> {{ listing.seller }}</div>
-                                </div>
-                                <div class="row text-secondary pb-2">
-                                    <div id="time_stamp" class="col-6">
-                                        <i class="fas fa-clock"></i> {{ listing.list_date | timesince }}</div>
-                                </div>
-                                <hr>
-                                <!-- Trace back the listing url (name='listing') -->
-                                <a href="{% url 'listing' listing.id %}" class="btn btn-primary btn-block">
-                                    More Info</a>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% else %}
-            <!-- 'col-md-12' Takes the whole row-->
-                <div class="col-md-12">
-                    <p>No Listings Available</p>
-                </div>
-            {% endif %}
-        </div>
+      {% if listings %}
 
-        <!-- Latest bootstrap aria enabled pagination -->
-        <div class="row" aria-label="listing page navigation">
-            <div class="col-md-12">
-            {% if listings.has_other_pages %}
-                <ul class="pagination">
-                    {% if listings.has_previous %}
-                        <li class="page-item">
-                            <!-- Connect the back character to the previous page number -->
-                            <a class="page-link" href="?page={{ listings.previous_page_number}}" aria-label="Previous">
-                                <span>&laquo;</span>
-                            </a>
-                        </li>
-                    {% else %}
-                        <!-- If there is no previous page disable the back button  -->
-                        <li class="page-item disabled">
-                            <a class="page-link" aria-label="Previous">
-                                <span>&laquo;</span>
-                            </a>
-                        </li>
-                    {% endif %}
-                    <!-- Loop through the page range -->
-                    {% for i in listings.paginator.page_range %}
-                        <!-- check with the current page to find the active-->
-                        {% if listings.number == i %}
-                            <!-- Put the active page link -->
-                            <li class="page-item active" aria-current="page">
-                                <a class="page-link">
-                                    {{i}}
-                                    <!-- screen reader only -->
-                                    <span class="sr-only">(current)</span>
-                                </a>
-                            </li>
-                        {% else %}
-                            <!-- Navigate links -->
-                            <li class="page-item">
-                                <!-- Navigate to the value of i-->
-                                <a class="page-link" href="?page={{i}}">{{i}}</a>
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                    <!-- Add the next button -->
-                    {% if listings.has_next %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ listings.next_page_number }}" aria-label="Next">
-                                <span>&raquo;</span>
-                            </a>
-                        </li>
-                    {% else %}
-                        <li class="page-item disabled">
-                            <a class="page-link" aria-label="Next">
-                                <span>&raquo;</span>
-                            </a>
-                        </li>
-                    {% endif %}
-                </ul>
-            {% endif %}
+      {% for listing in listings %}
+      <!-- Grab all items from listing template -->
+      <!-- Listing template -->
+
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card listing-preview">
+          <div class="card-img-container">
+            <img class="card-img-top" src="{{ listing.photo_main.url }}" alt="">
+          </div>
+          <div class="card-img-overlay">
+            <h2>
+              <span class="badge badge-secondary text-white">₹ {{ listing.price | insertComma }}</span>
+            </h2>
+          </div>
+          <div class="card-body">
+            <div class="listing-heading text-center">
+              <h4 class="text-primary">{{ listing.title }}</h4>
+              <p>
+                <i class="fas fa-map-marker text-secondary"></i> {{ listing.seller.city }},
+                {{ listing.seller.state }} </p>
             </div>
+            <hr>
+            <div class="row py-2 text-secondary">
+              <div class="col-6">
+                <i class="fas fa-tv"></i> Screen: {{ listing.screen_size }} in.</div>
+              <div class="col-6">
+                <i class="fa fa-microchip"></i> {{ listing.processor | charLimitter }}</div>
+            </div>
+            <div class="row py-2 text-secondary">
+              <div class="col-6">
+                <i class="fas fa-memory"></i> {{ listing.ram }}</div>
+              <div class="col-6">
+                <i class="fas fa-hdd"></i> {{ listing.memory | charLimitter }}</div>
+            </div>
+            <hr>
+            <div class="row py-2 text-secondary">
+              <div class="col-12">
+                <i class="fas fa-user"></i> {{ listing.seller }}</div>
+            </div>
+            <div class="row text-secondary pb-2">
+              <div id="time_stamp" class="col-6">
+                <i class="fas fa-clock"></i> {{ listing.list_date | timesince }}</div>
+            </div>
+            <hr>
+            <!-- Trace back the listing url (name='listing') -->
+            <a href="{% url 'listing' listing.id %}" class="btn btn-primary btn-block">
+              More Info</a>
+          </div>
         </div>
+      </div>
+      {% endfor %}
+
+      {% else %}
+      <!-- 'col-md-12' Takes the whole row-->
+      <div class="col-md-12">
+        <p>No Listings Available</p>
+      </div>
+      {% endif %}
     </div>
+
+    <!-- Latest bootstrap aria enabled pagination -->
+    <div class="row" aria-label="listing page navigation">
+      <div class="col-md-12">
+        {% if listings.has_other_pages %}
+        <ul class="pagination">
+          {% if listings.has_previous %}
+          <li class="page-item">
+            <!-- Connect the back character to the previous page number -->
+            <a class="page-link" href="?page={{ listings.previous_page_number}}" aria-label="Previous">
+              <span>&laquo;</span>
+            </a>
+          </li>
+          {% else %}
+          <!-- If there is no previous page disable the back button  -->
+          <li class="page-item disabled">
+            <a class="page-link" aria-label="Previous">
+              <span>&laquo;</span>
+            </a>
+          </li>
+          {% endif %}
+          <!-- Loop through the page range -->
+          {% for i in listings.paginator.page_range %}
+          <!-- check with the current page to find the active-->
+          {% if listings.number == i %}
+          <!-- Put the active page link -->
+          <li class="page-item active" aria-current="page">
+            <a class="page-link">
+              {{i}}
+              <!-- screen reader only -->
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          {% else %}
+          <!-- Navigate links -->
+          <li class="page-item">
+            <!-- Navigate to the value of i-->
+            <a class="page-link" href="?page={{i}}">{{i}}</a>
+          </li>
+          {% endif %}
+
+          {% endfor %}
+          <!-- Add the next button -->
+          {% if listings.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ listings.next_page_number }}" aria-label="Next">
+              <span>&raquo;</span>
+            </a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" aria-label="Next">
+              <span>&raquo;</span>
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+        {% endif %}
+      </div>
+    </div>
+  </div>
 </section>
 
 {% endblock %}

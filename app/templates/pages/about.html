@@ -5,116 +5,126 @@
 {% block title %}| About Us{% endblock %}
 
 {% block content %}
-
 <!-- About heading -->
 <section id="showcase-inner" class="py-5 text-white">
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-md-12">
-                <h1 class="display-4">About BT Real Estate</h1>
-                <p class="lead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, pariatur!</p>
-            </div>
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <div class="about--heading">
+          <img src="{% static 'img/logo.png' %}" alt="usedbrains logo" class="about--heading-logo" style="width: 150px">
+          <h1 class="about--heading-text display-4">UsedBrains</h1>
         </div>
+        <p class="lead">Sometimes a used brain can make all the difference!</p>
+      </div>
     </div>
+  </div>
 </section>
 
 <!-- Breadcrumb -->
 <section id="bc" class="mt-3">
-    <div class="container">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <!-- from the urlfield name in the pages app -->
-                    <a href="{% url 'index' %}">
-                        <i class="fas fa-home"></i> Home</a>
-                </li>
-                <li class="breadcrumb-item active"> About</li>
-            </ol>
-        </nav>
-    </div>
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <!-- from the urlfield name in the pages app -->
+          <a href="{% url 'index' %}">
+            <i class="fas fa-home"></i> Home</a>
+        </li>
+        <li class="breadcrumb-item active"> About</li>
+      </ol>
+    </nav>
+  </div>
 </section>
 
 <!-- About body -->
 <section id="about" class="py-4">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <h2>We Search For The Perfect Home</h2>
-                <p class="lead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, pariatur!</p>
-                <img src="{% static '/img/about.jpg' %}" alt="about-image">
-                <p class="mt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis esse officia
-                    repudiandae ad saepe ex, amet
-                    neque quod accusamus rem quia magnam magni dolorum facilis ullam minima perferendis? Exercitationem
-                    at quaerat
-                    commodi id libero eveniet harum perferendis laborum molestias quia.</p>
-            </div>
-            <!-- Seller of the month -->
-            {% for seller in sellers %}
-                {% if seller in mvp_sellers %}
-                <div class="col-md-4">
-                    <div class="card">
-                        <img class="card-img-top" src="{{ seller.photo.url }}"
-                        alt="Seller of the month">
-                        <div class="card-body">
-                            <h5 class="card-title">Seller Of The Month</h5>
-                            <h6 class="text-secondary">{{ seller.name }}</h6>
-                            <p class="card-text">
-                                {{ seller.description }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-            {% endfor %}
-
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <h2>We got your perfect second brain</h2>
+        <p class="lead">From the top refurbished markets and individual sellers, we got your perfect lappy!</p>
+        <img src="{% static '/img/about.jpg' %}" alt="about-image">
+        <p class="mt-4">&nbsp;&nbsp; From the top markets and sellers we got your perfect used laptop, refurbished in
+          industrial
+          class service centers with genuine rated parts with warranty, we got you fully covered. We also offers
+          additional insuring schemes and paid extra guarantied repairs, so run your second brain at its full fledge,
+          bring out the maximum productivity.
+        </p>
+        <p class="mt-1">&nbsp;&nbsp;Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis esse officia
+          repudiandae
+          ad saepe ex, amet neque quod accusamus rem quia magnam magni dolorum facilis ullam minima perferendis?
+          Exercitationem at quaerat commodi id libero eveniet harum perferendis laborum molestias quia.</p>
+      </div>
+      <!-- Seller of the month -->
+      {% for seller in sellers %}
+      {% if seller in mvp_sellers %}
+      <div class="col-md-4">
+        <div class="card">
+          <img class="card-img-top" src="{{ seller.photo.url }}" alt="Seller of the month">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-medal" style="color: #20c997"></i> Seller Of The Month</h5>
+            <h6 class="text-secondary">{{ seller.name }}</h6>
+            <p class="card-text">
+              {{ seller.description }}
+            </p>
+          </div>
         </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+
     </div>
+  </div>
 </section>
 
 <!-- Work -->
-<section id="work" class="bg-dark text-white text-center">
-    <h2 class="display-4">We Work For You</h2>
-    <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem velit aperiam, unde aliquid at similique!</h4>
-    <hr>
-    <a href="listings.html" class="btn btn-secondary text-white btn-lg">View Our Featured Listings</a>
+<section id="work" class="text-white">
+  <div class="container">
+    <div class="work--content text-center">
+      <h2 class="display-4">We Brings the Best from all Markets</h2>
+      <h4>Top quality used laptops from all markets and individual sellers, all in one place.</h4>
+      <br>
+      <a href="{% url 'listings' %}" class="btn btn-secondary text-white btn-lg">Visit Our Marketplace</a>
+    </div>
+  </div>
 </section>
 
 <!-- Team -->
 <section id="team" class="py-5">
-    <div class="container">
-        <h2 class="text-center">Our Team</h2>
-        <div class="row text-center">
-            <!-- Check for realtors -->
-            {% if sellers %}
-                <!-- Loop through them an display them -->
-                {% for seller in sellers %}
-                    <div class="col-md-4">
-                        <img src="{{ seller.photo.url }}" alt="" class="rounded-circle mb-3">
-                        <h4>{{ seller.name }}
-                        {% if seller in authentic_sellers %}
-                            <i class="fas fa-shield-alt text-success mb-2"></i>
-                        {% endif %}
-                        </h4>
-                        {% if seller in mvp_sellers %}
-                            <p class="text-success">
-                                <i class="fas fa-award text-success mb-3"></i> Top Seller
-                            </p>
-                        {% endif %}
-                        <hr>
-                        <p>
-                            <i class="fas fa-phone"></i> {{ seller.phone_number }}</p>
-                        <p>
-                            <i class="fas fa-envelope-open"></i> {{ seller.email }}</p>
-                    </div>
-                {% endfor %}
-            {% else %}
-                <div class="col-md-12">
-                    <p>There are no sellers to display.</p>
-                </div>
-            {% endif %}
+  <div class="container">
+    <h2 class="text-center">Our Best Sellers</h2>
+    <div class="row text-center">
+      <!-- Check for realtors -->
+      {% if sellers %}
+      <!-- Loop through them an display them -->
+      {% for seller in sellers %}
+      <div class="col-md-4">
+        <img src="{{ seller.photo.url }}" alt="" class="rounded-circle mb-3">
+        <h4>{{ seller.name }}
+          {% if seller in authentic_sellers %}
+          <i class="fas fa-shield-alt text-success mb-2"></i>
+          {% endif %}
+        </h4>
+        {% if seller in mvp_sellers %}
+        <p class="text-success">
+          <i class="fas fa-award text-success mb-3"></i> Top Seller
+        </p>
+        {% endif %}
+        <hr>
+        <p>
+          <i class="fas fa-phone"></i> {{ seller.phone_number }}</p>
+        <p>
+          <i class="fas fa-envelope-open"></i> {{ seller.email }}</p>
+      </div>
+      {% endfor %}
+      {% else %}
+      <div class="col-md-12">
+        <p>There are no sellers to display.</p>
+      </div>
+      {% endif %}
 
-        </div>
     </div>
+  </div>
 </section>
 
 {% endblock %}
