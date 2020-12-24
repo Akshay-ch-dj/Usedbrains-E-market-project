@@ -46,3 +46,15 @@ UB provides an online platform for it,
 Also the site can be scaled down to use for a single merchant.
 
 ---
+
+## About the project
+
+* The [project path documentation](./UsedBrains_doc.md)
+* About [deployment of the Project](./Project_deployment.md)
+* About the [Docker configurations in the project](./docker_essentials.md)
+* Tracking the [project path](./project_tracker.md)
+
+## Credits
+
+* Project Basic idea and base-template taken from:- Brad Traversy, [Traversy media](https://www.youtube.com/channel/UC29ju8bIPH5as8OGnQzwJyA).
+* Pictures From [Unsplash](https://unsplash.com/)
