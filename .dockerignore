@@ -1,0 +1,14 @@
+UB.png
+README.md
+LICENSE
+.gitignore
+docker-compose.yml
+
+# Local environment
+UB-localenv
+
+# Documentation
+Docs
+
+# Vscode settings
+.vscode

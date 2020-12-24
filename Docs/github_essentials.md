@@ -1,6 +1,20 @@
-# The essential commands to manage git and github
+# The essential commands to manage git and github <!-- omit in toc -->
 
-## Changing to `https`
+<!-- omit in toc -->
+## Table of contents
+
+- [Changing the remote url](#changing-the-remote-url)
+- [Rollbacks](#rollbacks)
+  - [Identifying old commits](#identifying-old-commits)
+- [Git branching basics](#git-branching-basics)
+  - [Working with branches](#working-with-branches)
+  - [Merging Branches](#merging-branches)
+  - [Merge conflicts](#merge-conflicts)
+  - [To view the commit history as a cli graph](#to-view-the-commit-history-as-a-cli-graph)
+- [Working with remote](#working-with-remote)
+  - [`pull`, `merge` & `push` workflow](#pull-merge--push-workflow)
+
+## Changing the remote url
 
 * To change remote url to `https`.
 
@@ -45,8 +59,13 @@
 * Always use `git status` to identify the current status and condition,
 * Git changes or adds the commit to where the HEAD is pointing(branch), latest commit to other branches doesn't shows up,
 * Working on a different branch, the history will only be added to that branch (also working directory), simply each branch is a pointer to specific commit in a series of snapshots.
-* To delete a new branch,\
-  `git branch -d new-feature`\
+* To delete a new branch,
+
+  ```bash
+  git push -d <remote_name> <branch_name> # remote
+  git branch -d <branch_name> # local
+  ```
+
   If there is unmerged changes left, git will indicate with an error.
 
 ### Merging Branches

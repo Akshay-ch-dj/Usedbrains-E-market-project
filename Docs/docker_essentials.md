@@ -1,6 +1,15 @@
-# Using Docker and Docker-Compose
+# Using Docker and Docker-Compose <!-- omit in toc -->
 
----
+## Table of Contents
+
+- [Table of Contents](#table-of-contents)
+- [Steps to containerize the app](#steps-to-containerize-the-app)
+- [Using docker-compose](#using-docker-compose)
+- [Useful commands](#useful-commands)
+  - [General](#general)
+  - [Manage images and containers](#manage-images-and-containers)
+  - [Docker connect to a running container](#docker-connect-to-a-running-container)
+- [Creating docker containers using direct commands](#creating-docker-containers-using-direct-commands)
 
 The essential docker guide with the configuration used in this project, for a more detailed walkthrough and commands with a project [go here](https://github.com/Akshaychdev/Docker-k8s-practice/blob/main/Docs/docker_learn.md)
 
@@ -13,33 +22,33 @@ The essential docker guide with the configuration used in this project, for a mo
 * Create a `Dockerfile` for the project, that contains instructions to build a 'docker image'.
 * Put down all the dependencies that needed for the project in Dockerfile.
 
-```dockerfile
-FROM python:3.8.6-alpine
+  ```dockerfile
+  FROM python:3.8.6-alpine
 
-LABEL Maintainer="akshaych.dev@gmail.com"
+  LABEL Maintainer="akshaych.dev@gmail.com"
 
-ENV PYTHONUNBUFFERED 1
-ENV PYTHONDONTWRITEBYTECODE 1
+  ENV PYTHONUNBUFFERED 1
+  ENV PYTHONDONTWRITEBYTECODE 1
 
-RUN pip install --upgrade pip
-COPY ./requirements.txt /requirements.txt
-RUN apk add --update --no-cache postgresql-client jpeg-dev
-RUN apk add --update --no-cache --virtual .tmp-build-deps \
-    gcc libc-dev linux-headers postgresql-dev musl-dev zlib zlib-dev
-RUN pip install -r /requirements.txt
-RUN apk del .tmp-build-deps
+  RUN pip install --upgrade pip
+  COPY ./requirements.txt /requirements.txt
+  RUN apk add --update --no-cache postgresql-client jpeg-dev
+  RUN apk add --update --no-cache --virtual .tmp-build-deps \
+      gcc libc-dev linux-headers postgresql-dev musl-dev zlib zlib-dev
+  RUN pip install -r /requirements.txt
+  RUN apk del .tmp-build-deps
 
-RUN mkdir /app
-WORKDIR /app
-COPY ./app /app
+  RUN mkdir /app
+  WORKDIR /app
+  COPY ./app /app
 
-RUN mkdir -p /vol/web/media
-RUN mkdir -p /vol/web/static
-RUN adduser -D user
-RUN chown -R user:user /vol/
-RUN chmod -R 755 /vol/web
-USER user
-```
+  RUN mkdir -p /vol/web/media
+  RUN mkdir -p /vol/web/static
+  RUN adduser -D user
+  RUN chown -R user:user /vol/
+  RUN chmod -R 755 /vol/web
+  USER user
+  ```
 
 * First one is the `BASE IMAGE` from [docker-hub](https://hub.docker.com/_/python)
 * Install pip and copy the requirements.txt file to the build images root.
@@ -158,7 +167,7 @@ $ -> runs on the bash terminal or linux terminal.
 * $`docker exec -it <container-name> bash`, it can be used to connect to the db service running and view the tables created in postgres.
 * Use `\q` to exit from postgres and `exit` to exit from the terminal.
 
-## Creating docker containers using direct commands.
+## Creating docker containers using direct commands
 
 * Use `docker create` to create a container with `-V` mount a volume, to a specific directory, and --name, name of base image
 * To create a running independent db image.accordion
