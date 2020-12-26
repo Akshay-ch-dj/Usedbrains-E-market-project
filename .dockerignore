@@ -2,7 +2,6 @@ UB.png
 README.md
 LICENSE
 .gitignore
-docker-compose.yml
 
 # Local environment
 UB-localenv
@@ -12,11 +11,3 @@ Docs
 
 # Vscode settings
 .vscode
-
-# Common
-__pycache__
-*.pyc
-env/
-.env
-*.env
-db.sqlite3

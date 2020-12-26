@@ -9,12 +9,10 @@ built on django
 
 ## To Run locally
 
-The project is dockerised, with docker desktop or equivalent installed on the machine, clone the project from the `master` branch and do a,
+The project is dockerized, with docker desktop or equivalent installed on the local machine, clone the project from the `local-dev` branch and do a,
 
   ```sh
   docker-compose up
   ```
 
-This will create all needed containers(main and db) with the dependencies in [requirements.txt](./requirements.txt) as per the [docker-compose.yml](./docker-compose.yml), runs the necessary commands in and creates a local development server on on `127.0.0.1:8000`.
-
-## For the deployed version
+This will create all needed containers(main and db) with the dependencies in [*requirements.txt*](./requirements.txt) as per the [*docker-compose.yml*](./docker-compose.yml), runs the necessary commands in and creates a local development server on on `127.0.0.1:8000`.
