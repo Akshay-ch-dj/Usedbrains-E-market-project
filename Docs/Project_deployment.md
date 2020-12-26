@@ -9,6 +9,7 @@
 - [Setup heroku app](#setup-heroku-app)
 - [Deployment to heroku using Container Registry](#deployment-to-heroku-using-container-registry)
 - [Postgress Database creation on heroku](#postgress-database-creation-on-heroku)
+- [Transfer Data from local postgress(if needed)](#transfer-data-from-local-postgressif-needed)
 - [External references docs](#external-references-docs)
 
 ## Reference resources From previous projects
@@ -199,6 +200,25 @@
   <tables>
 
   # \q   (to quit from psql)
+  ```
+
+## Transfer Data from local postgress(if needed)
+
+* To copy contents from host **to** docker container, use `docker cp foo.txt mycontainer:/foo.txt`.
+* And **from** container to host, `docker cp mycontainer:/foo.txt foo.txt`.
+
+* To run the terminal in heroku app `heroku run bash` or `sh`.
+* Get the database contents as a dump file in compressed format using the open source pg_dump tool:\
+  `PGPASSWORD=mypassword pg_dump -Fc --no-acl --no-owner -h localhost -U myuser mydb > mydb.dump`
+* Here to clone the test database, \
+  `PGPASSWORD=passwordmain pg_dump -Fc --no-acl --no-owner -h db -U postgres app  > ubdb.dump`
+* That creates the `ubdb.dump` file in the root, now copy that to host and put on a remote url, then scan it to heroku postgres url.\
+  `docker cp 54e4ed851586:/ubdb.dump ubdb.dump`,
+
+* The dump file can be uploaded to s3 bucket, secured url(google drive won't works), then that file url can be used to populate the db using,
+
+  ```shell
+  heroku pg:backups:restore '<SIGNED URL>' DATABASE_URL
   ```
 
 ## External references docs
