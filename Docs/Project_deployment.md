@@ -1,8 +1,23 @@
-# Project Deployment to Heroku
+# Project Deployment to Heroku <!-- omit in toc -->
 
-For the basic info on django-heroku-docker [deployment use this project.](https://github.com/Akshaychdev/Heroku-Docker-Django-Tester/blob/deployment/Docs/django_deployment.md)
+<!-- omit in toc -->
+## Table of Contents
 
-## Changing the docker file
+- [Reference resources From previous projects](#reference-resources-from-previous-projects)
+- [Modifying docker file for deployment](#modifying-docker-file-for-deployment)
+- [Django setup for Postgres with Docker (for Heroku)](#django-setup-for-postgres-with-docker-for-heroku)
+- [Setup heroku app](#setup-heroku-app)
+- [Deployment to heroku using Container Registry](#deployment-to-heroku-using-container-registry)
+- [Postgress Database creation on heroku](#postgress-database-creation-on-heroku)
+- [External references docs](#external-references-docs)
+
+## Reference resources From previous projects
+
+* For a detailed information on setting docker file for deployment [view this sample project](https://github.com/Akshaychdev/Heroku-Docker-Django-Tester/blob/deployment/Docs/django_deployment.md).
+* For detailed information on docker and containerization view this [documentation](https://github.com/Akshaychdev/Docker-k8s-practice/blob/main/Docs/docker_learn.md).
+* The initial development docker config for [this project and basic commands](docker_essentials.md)
+
+## Modifying docker file for deployment
 
  ```Dockerfile
   FROM python:3.8.6-alpine
@@ -15,6 +30,7 @@ For the basic info on django-heroku-docker [deployment use this project.](https:
 
   COPY ./requirements.txt /requirements.txt
 
+  # The initial dev. config for reference
   # RUN apk add --update --no-cache postgresql-client jpeg-dev
   # RUN apk add --update --no-cache --virtual .tmp-build-deps \
   #   gcc libc-dev  postgresql-dev musl-dev zlib zlib-dev
@@ -34,20 +50,23 @@ For the basic info on django-heroku-docker [deployment use this project.](https:
   WORKDIR /app
   COPY ./app /app
 
-  RUN mkdir -p /vol/web/media \  # not used
-    && mkdir -p /vol/web/static \ # not used
-    && adduser -D user \ # Add a user for server
-    && chown -R user:user /vol/ \ # Access only that separate media and data folder
-    && chmod -R 755 /vol/web # permissions to read and execute
+  RUN mkdir -p /vol/web/media \ # not used now
+      && mkdir -p /vol/web/static \  # not used now
+      && adduser -D user \  # Add a user for server
+      && chown -R user:user /vol/ \
+      && chown -R user:user /app \
+      && chmod -R 755 /vol/web
 
   USER user
 
   CMD gunicorn app.wsgi:application --bind 0.0.0.0:$PORT
  ```
 
+* The size needs to minimized for deployment, chain the commands to increase building speed and remove the creation of unwanted containers.
 * The `set -ex` command, while `set -x` enables a mode of the shell where all executed commands are printed to the terminal, printing every command as it is executed may help you to visualize the control flow of the script if it is not functioning as expected.
 * The `set -e`, aborts the execution of a command (e.g. a shell script) and returns the exit status code of the command that failed (i.e. the inner script, not the outer script).
 * `--purge` removes everything related to a package including the configuration files.
+* Set user as the owner of the "app" folder(temporary solution until separating static)
 * The `$PORT` variable. Essentially, any web server that runs on the Container Runtime must listen for HTTP traffic at the `$PORT` environment variable, which is set by Heroku at runtime.
 
 * Install the additional packages for heroku and update the `requirements.txt`, added packages, gunicorn,whitenoise, dj-database-url, django-storages
@@ -78,36 +97,17 @@ For the basic info on django-heroku-docker [deployment use this project.](https:
 
 * That sets the `$PORT` variable explicitly and which is bounded to host port `8007`, now (`127.0.0.1:8007`) it can be run locally.
 * Shift to `sqlite` for local testing  run give permissions for the sqlite read and write. Quick look [here](https://www.pluralsight.com/blog/it-ops/linux-file-permissions) for basic info on linux permissions, eg `755`(commonly used by web servers.) The owner has all the permissions to read, write and execute. Everyone else can read and execute but cannot make changes to the file.
-* Modified docker file for local testing,
+* Modified docker file for local testing before deployment,
 
   ```Dockerfile
-  FROM python:3.8.6-alpine
+  # ... as previous
 
-  LABEL Maintainer="akshaych.dev@gmail.com"
-
-  ENV PYTHONUNBUFFERED 1
-  ENV PYTHONDONTWRITEBYTECODE 1
-
-  COPY ./requirements.txt /requirements.txt
-
-  RUN set -ex \
-    && mkdir /app \
-    && pip install --upgrade pip \
-    && apk add --update --no-cache postgresql-libs jpeg-dev \
-    && apk add --update --no-cache --virtual .tmp-build-deps \
-    gcc musl-dev postgresql-dev zlib zlib-dev linux-headers \
-    && pip install --no-cache-dir -r /requirements.txt \
-    && apk --purge del .tmp-build-deps
-
-  WORKDIR /app
-  COPY ./app /app
-
-  RUN mkdir -p /vol/web/media \  # not used in local
-    && mkdir -p /vol/web/static \  # not used in local
-    && adduser -D user \
-    && chown -R user:user /vol/ \  # not used in local
-    && chown -R user:user /app \  # For local, add rights to local container
-    && chmod -R 755 /vol/web  # not used in local
+  RUN mkdir -p /vol/web/media \ # not used now
+      && mkdir -p /vol/web/static \  # not used now
+      && adduser -D user \  # Add a user for server
+      && chown -R user:user /vol/ \
+      && chown -R user:user /app \
+      && chmod -R 755 /vol/web
 
   USER user
 
@@ -115,13 +115,6 @@ For the basic info on django-heroku-docker [deployment use this project.](https:
 
   CMD gunicorn app.wsgi:application --bind 0.0.0.0:$PORT
   ```
-
-## Useful references
-
-* [Django-heroku app deployment](https://medium.com/@hdsingh13/deploying-django-app-on-heroku-with-postgres-as-backend-b2f3194e8a43)
-* [Django-Docker-Heroku-Postgress app deployment](https://testdriven.io/blog/deploying-django-to-heroku-with-docker/)
-* [Dockerizing django with postgres, gunicorn and nginix.](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/)
-* Building python apps with [docker base image comparison.](https://pythonspeed.com/articles/alpine-docker-python/)
 
 ## Django setup for Postgres with Docker (for Heroku)
 
@@ -207,3 +200,10 @@ For the basic info on django-heroku-docker [deployment use this project.](https:
 
   # \q   (to quit from psql)
   ```
+
+## External references docs
+
+* [Django-heroku app deployment](https://medium.com/@hdsingh13/deploying-django-app-on-heroku-with-postgres-as-backend-b2f3194e8a43)
+* [Django-Docker-Heroku-Postgress app deployment](https://testdriven.io/blog/deploying-django-to-heroku-with-docker/)
+* [Dockerizing django with postgres, gunicorn and nginix.](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/)
+* Building python apps with [docker base image comparison.](https://pythonspeed.com/articles/alpine-docker-python/)
