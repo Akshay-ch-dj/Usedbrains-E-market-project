@@ -145,3 +145,4 @@ app/media
 .gitignore
 .vscode/settings.json
 .gitignore
+app/staticfiles/
