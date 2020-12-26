@@ -12,3 +12,11 @@ Docs
 
 # Vscode settings
 .vscode
+
+# Common
+__pycache__
+*.pyc
+env/
+.env
+*.env
+db.sqlite3

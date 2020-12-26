@@ -138,6 +138,7 @@ UB-localenv/Lib/
 
 # Media files and static files
 app/static/
+app/staticfiles/
 app/media
 
 # .vs code
