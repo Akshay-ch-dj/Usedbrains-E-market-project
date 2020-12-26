@@ -5,21 +5,35 @@ LABEL Maintainer="akshaych.dev@gmail.com"
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
 
-RUN pip install --upgrade pip
-COPY ./requirements.txt /requirements.txt
-RUN apk add --update --no-cache postgresql-client jpeg-dev
-RUN apk add --update --no-cache --virtual .tmp-build-deps \
-  gcc libc-dev linux-headers postgresql-dev musl-dev zlib zlib-dev
-RUN pip install -r /requirements.txt
-RUN apk del .tmp-build-deps
 
-RUN mkdir /app
+COPY ./requirements.txt /requirements.txt
+
+# RUN apk add --update --no-cache postgresql-client jpeg-dev
+# RUN apk add --update --no-cache --virtual .tmp-build-deps \
+#   gcc libc-dev  postgresql-dev musl-dev zlib zlib-dev
+# RUN pip install -r /requirements.txt
+# RUN apk del .tmp-build-deps
+# RUN mkdir /app
+
+RUN set -ex \
+  && mkdir /app \
+  && pip install --upgrade pip \
+  && apk add --update --no-cache postgresql-libs jpeg-dev \
+  && apk add --update --no-cache --virtual .tmp-build-deps \
+  gcc musl-dev postgresql-dev zlib zlib-dev linux-headers \
+  && pip install --no-cache-dir -r /requirements.txt \
+  && apk --purge del .tmp-build-deps
+
 WORKDIR /app
 COPY ./app /app
 
-RUN mkdir -p /vol/web/media
-RUN mkdir -p /vol/web/static
-RUN adduser -D user
-RUN chown -R user:user /vol/
-RUN chmod -R 755 /vol/web
+RUN mkdir -p /vol/web/media \
+  && mkdir -p /vol/web/static \
+  && adduser -D user \
+  && chown -R user:user /vol/ \
+  && chown -R user:user /app \
+  && chmod -R 755 /vol/web
+
 USER user
+
+CMD gunicorn app.wsgi:application --bind 0.0.0.0:$PORT
